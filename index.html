@@ -15,12 +15,12 @@
   <body>
     <main class="container">
       <header class="header">
-        <nav class="mobile-nav">
-          <section class="nav-section">
-            <img
-              src="./assets/cropped-cropped-kerst-logo.webp"
-              alt="Logo VR cafe"
-            />
+        <nav class="navigation">
+          <img
+            src="./assets/cropped-cropped-kerst-logo.webp"
+            alt="Logo VR cafe"
+          />
+          <section class="mob-nav-section">
             <button class="menu-button" onclick="toggleMenu()">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -34,10 +34,15 @@
                 />
               </svg>
             </button>
+            <ul class="menu">
+              <li onclick='categoryFilter("Alle")'>Alle</li>
+              <li onclick='categoryFilter("Werk")'>Werk</li>
+              <li onclick='categoryFilter("Persoonlijk")'>Persoonlijk</li>
+              <li onclick='categoryFilter("Vrije tijd")'>Vrije tijd</li>
+              <li onclick='categoryFilter("Onvoltooid")'>Onvoltooid</li>
+              <li onclick='categoryFilter("Voltooid")'>Voltooid</li>
+            </ul>
           </section>
-          <ul class="menu">
-            <li>Home</li>
-          </ul>
         </nav>
 
         <h1 class="title">Todo App</h1>
@@ -46,6 +51,14 @@
         <formfield>
           <form class="new-todo-form">
             <input type="text" placeholder="Voeg todo toe" name="todo" />
+
+            <select id="category" name="category">
+              <option value="Werk">Werk</option>
+              <option value="Persoonlijk">Persoonlijk</option>
+              <option value="Vrije tijd">Vrije tijd</option>
+              <option value="Onvoltooid">Onvoltooid</option>
+              <option value="Voltooid">Voltooid</option>
+            </select>
             <button type="button" onclick="addTodo()">Voeg toe</button>
           </form>
         </formfield>

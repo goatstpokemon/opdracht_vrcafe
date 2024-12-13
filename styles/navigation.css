@@ -1,0 +1,29 @@
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  padding: 0 0.5rem;
+  background: var(--primary);
+  width: 100vw;
+  top: 0;
+  left: 0;
+  height: 3rem;
+  background-color: var(--primary);
+  img {
+    overflow: visible;
+    position: relative;
+    z-index: 100;
+    margin-bottom: -40px;
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    max-width: 9rem;
+  }
+  .mob-nav-section {
+    display: hidden;
+  }
+  .menu-button {
+    display: none;
+  }
+}

@@ -1,0 +1,52 @@
+@media screen and (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+  .title {
+    font-size: 4.5rem;
+  }
+
+  .todo-list {
+    width: 90%;
+  }
+  .mob-nav-section {
+    display: block;
+    button {
+      background: none;
+      border: none;
+    }
+    .menu-button {
+      position: relative;
+      z-index: 100;
+      display: block;
+      svg {
+        width: 2rem;
+        height: 2rem;
+        fill: var(--tertiary);
+      }
+    }
+    .menu {
+      display: none;
+      position: fixed;
+      background: #490c69;
+      width: 100vw;
+      height: fit-content;
+      left: 0;
+      top: 3rem;
+      list-style: none;
+      padding: 1rem 0;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+
+      li {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: white;
+      }
+    }
+    .active {
+      display: flex;
+    }
+  }
+}
