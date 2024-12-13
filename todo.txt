@@ -1,0 +1,34 @@
+Frontend
+ - Taken weergeven op basis van categorie
+ - Invoerveld voor het aanmaken van een taak
+ - Filteren op categorie sidebar/tabs en collapsable menu/dropdown
+ - Toevoegen van categorie aan veld
+ - Toggle dark/light
+ - Knoppen
+    - Voltooid
+    - Verwijderd
+
+Opslag in local storage
+ - taken
+ - categorieen
+
+Categorieen
+ - Werk
+ - Persoonlijk
+ - Vrije tijd
+ - onvoltooid
+ - Voltooid
+ - nieuwe toevoegen
+
+
+Styling
+ - Kleuren defineren ✔️
+ - Font defineren ✔️
+ - knoppen maken ✔️
+ - Invoerveld maken ✔️
+ - Logo Toevoegen ✔️
+ - Breakpoints maken
+ - Hover effecten ✔️
+ - Animatie taak Toevoegen/verwijderen ✔️
+
+
