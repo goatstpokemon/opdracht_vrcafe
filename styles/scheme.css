@@ -5,6 +5,9 @@
   background-size: cover;
   color: hsl(0, 0%, 100%);
   .new-todo-form {
+    input[type='text'] {
+      color: hsl(0, 0%, 100%);
+    }
     select {
       color: hsl(0, 0%, 100%) !important;
     }

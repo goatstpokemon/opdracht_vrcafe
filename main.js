@@ -1,9 +1,11 @@
 var todosArr = [];
 const todos = JSON.parse(localStorage.getItem('todos'));
 const todoList = document.getElementsByClassName('todo-list')[0];
-let currentCategory = 'Alle';
-let darkmode = true;
-let completed = false;
+var currentCategory = 'Alle';
+var darkmode = true;
+var completed = false;
+
+
 window.onload = () => {
   if (todos) {
     todosArr = todos;
@@ -12,8 +14,8 @@ window.onload = () => {
   listTodos();
 };
 const addTodo = () => {
-  const todoValue = document.getElementsByName('todo')[0].value;
-  const categoryValue = document.getElementsByName('category')[0].value;
+  const todoValue = document.getElementsByName('todo')[0].value.trim();
+  const categoryValue = document.getElementsByName('category')[0].value.trim();
   if (todoValue === '' || categoryValue === '') {
     return;
   }
@@ -25,9 +27,12 @@ const addTodo = () => {
       category: categoryValue,
       voltooid: false
     });
+    console.log("length is 0", todosArr);
+
     localStorage.setItem('todos', JSON.stringify([...todosArr]));
     listTodos();
   } else {
+    // Check if todo already exists
     if (
       todoValue === todosArr.filter((val) => val.todo === todoValue)[0]?.todo
     ) {
@@ -46,21 +51,33 @@ const addTodo = () => {
         category: categoryValue,
         voltooid: false
       });
+
+      console.log("added new todo", categoryValue);
+
     }
     localStorage.setItem('todos', JSON.stringify([...todosArr]));
     listTodos();
   }
 };
 const deleteTodo = (el) => {
-  const todoText = el.parentElement.parentElement.innerText;
-  console.log(todoText);
+  console.log('deleteTodo');
+
+  const todoItem = el.closest('.todo-item');
+  const todoText = todoItem.innerText;
+
+  console.log({ todoText, todosArr });
+
 
   if (todoText === todosArr.filter((val) => val.todo === todoText)[0]?.todo) {
-    console.log('test');
-    let index = todosArr.findIndex((val) => val.todo === todoText);
-    todosArr.splice(index, 1);
-    localStorage.setItem('todos', JSON.stringify([...todosArr]));
-    listTodos();
+    console.log('deleteTodo', todoText);
+
+    todoItem.classList.add('remove-todo');
+
+
+      todosArr = todosArr.filter((val) => val.todo !== todoText);
+      localStorage.setItem('todos', JSON.stringify([...todosArr]));
+      listTodos();
+
   }
 };
 
@@ -91,7 +108,7 @@ const categoryFilter = (category) => {
 };
 
 const showCompleted = () => {
-  completed = !completed;
+  completed = true;
   const todos = JSON.parse(localStorage.getItem('todos'));
   const completedTodos = todos.filter((todo) => todo.voltooid === true);
   todosArr = completedTodos;
@@ -99,26 +116,29 @@ const showCompleted = () => {
 };
 
 const showAll = () => {
-  completed = false;
+  completed != completed;
   const todos = JSON.parse(localStorage.getItem('todos'));
   todosArr = todos;
   listTodos();
 }
 
 
+
 const groupTodos = (todos) => {
-  const groupedTodos = todos.reduce((acc, curr) => {
+  let groupedTodos = todos.reduce((acc, curr) => {
     if (!acc[curr.category]) {
       acc[curr.category] = [];
     }
     acc[curr.category].push(curr);
     return acc;
   }, {});
+  console.log({ groupedTodos });
 
   return groupedTodos;
 };
 const createTodoItem = (todo) => {
   const li = document.createElement('li');
+  li.setAttribute('data-todo-id', todo.id);
   li.classList.add('todo-item');
   li.innerHTML = `<p>${todo.todo}</p>
           <section class="buttons">
@@ -151,64 +171,41 @@ const createTodoItem = (todo) => {
 };
 
 const listTodos = () => {
-
   todoList.innerHTML = '';
   todoList.innerHTML += `<h2 class="category-title">${currentCategory}</h2>`;
   if (todosArr.length === 0 ) {
-    todoList.innerHTML = `<h2 class="category-title">${currentCategory}</h2>`;
-    todoList.innerHTML += '<p class="no-task">Geen taken gevonden</p>';
+   todoList.innerHTML += '<p class="no-task">Geen taken gevonden</p>';
   }
-  if (!completed) {
+
 
   if (currentCategory === 'Alle') {
-    const groupedTodo = groupTodos(todosArr);
-    console.log(groupedTodo);
-
+    let groupedTodo = groupTodos(todosArr);
     Object.entries(groupedTodo).forEach(([categories, todos]) => {
+      console.log({ categories, todos });
+
       const h2 = document.createElement('h2');
       h2.classList.add('category-title-sm');
       h2.innerText = categories;
-      todos.map((todo) => {
+      todoList.appendChild(h2);
+      todos.forEach((todo) => {
         if (todo.voltooid !== true) {
-          todoList.appendChild(h2);
+
           const li = createTodoItem(todo);
           todoList.appendChild(li);
         }
       });
     });
-  }   else {
-    todosArr.map((todo) => {
-      if (todo.voltooid !== true) {
-        const li = createTodoItem(todo);
-        todoList.appendChild(li);
-      }
-    });
-  }
 } else {
-  if (currentCategory === 'Alle') {
-    const groupedTodo = groupTodos(todosArr);
-    console.log(groupedTodo);
-
-    Object.entries(groupedTodo).forEach(([categories, todos]) => {
-      const h2 = document.createElement('h2');
-      h2.classList.add('category-title-sm');
-      h2.innerText = categories;
-      todos.map((todo) => {
-        todoList.appendChild(h2);
-        const li = createTodoItem(todo);
-        todoList.appendChild(li);
-      });
-    });
-  }   else {
-    todosArr.map((todo) => {
+  todosArr.forEach((todo) => {
+    if (todo.voltooid !== true) {
       const li = createTodoItem(todo);
       todoList.appendChild(li);
-    });
-  }
-
-  document.getElementsByClassName('todo-container')[0].appendChild(todoList);
-};
+    }
+  });
 }
+  document.getElementsByClassName('todo-container')[0].appendChild(todoList);
+}
+
 
 const toggleMenu = () => {
   const menu = document.getElementsByClassName('menu')[0];

@@ -30,6 +30,6 @@ Styling
  - Logo Toevoegen ✔️
  - Breakpoints maken ✔️
  - Hover effecten ✔️
- - Animatie taak Toevoegen/verwijderen ✔️
+ - Animatie taak Toevoegen/verwijderen
 
 

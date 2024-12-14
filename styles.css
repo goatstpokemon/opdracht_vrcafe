@@ -99,6 +99,7 @@ button {
   }
   button:hover {
     background: var(--secondary);
+    transition: background 0.3s ease-in-out;
   }
 
   select {
@@ -163,6 +164,7 @@ button {
 
       svg {
         fill: white !important;
+        transition: fill 0.3s ease-in-out;
       }
     }
     .delete-button {
@@ -182,8 +184,13 @@ button {
       border: 2px var(--secondary) solid;
       svg {
         fill: var(--secondary) !important;
+        transition: fill 0.3s ease-in-out;
       }
     }
+  }
+  .todo-item:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
   }
 }
 
@@ -210,24 +217,21 @@ button {
   justify-content: space-between;
 }
 
-.fade-in {
-  animation: fadeIn 0.5s ease-in-out forwards;
+.remove-todo {
+  animation: removeTodo 0.5s ease-in-out forwards;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
+@keyframes removeTodo {
+  0% {
+    transform: translateX(0);
     opacity: 1;
   }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
+  50% {
+    transform: translateX(-15px);
+    opacity: 0.5;
   }
-  to {
+  100% {
+    transform: translateX(-30px);
     opacity: 0;
   }
 }
