@@ -1,12 +1,12 @@
 @import url('./styles/navigation.css');
+@import url('./styles/scheme.css');
 @import url('./styles/mobile.css');
-
 :root {
-  --primary: #630f8e;
-  --secondary: #fd3e81;
-  --tertiary: #36f2aa;
-  --background: #1e1921;
-  --alt-backround: #2b272d;
+  --primary: hsl(280, 81%, 31%);
+  --secondary: hsl(339, 98%, 62%);
+  --tertiary: hsl(157, 88%, 58%);
+  --background: hsl(278, 14%, 11%);
+  --alt-background: hsl(280, 7%, 16%);
 }
 
 * {
@@ -18,7 +18,6 @@
 }
 
 body {
-  background: var(--background);
   min-width: 100vw;
   min-height: 100vh;
 }
@@ -33,8 +32,12 @@ button {
 .category-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: white;
   margin-bottom: 1rem;
+}
+.category-title-sm {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 1rem 0;
 }
 .container {
   display: flex;
@@ -48,17 +51,17 @@ button {
 .no-task {
   font-size: 1rem;
   font-weight: 400;
-  color: white;
+
   text-align: center;
 }
 .title {
   font-size: 5rem;
   font-weight: 900;
-  color: white;
 }
 
 .header {
   padding-top: 10rem;
+  z-index: 20;
 }
 .new-todo-form {
   display: flex;
@@ -72,7 +75,7 @@ button {
     min-width: 400px;
     border: none;
     outline: none;
-    color: white;
+
     background: transparent;
     border-bottom: var(--tertiary) 2px solid;
     line-height: 1.3;
@@ -96,12 +99,11 @@ button {
   }
   button:hover {
     background: var(--secondary);
-    color: white;
   }
 
   select {
     background: transparent;
-    color: white;
+
     border: none;
     outline: none;
     border-bottom: var(--tertiary) 2px solid;
@@ -109,7 +111,6 @@ button {
     font-size: 1rem;
     option {
       background: var(--background);
-      color: white;
     }
   }
 }
@@ -118,21 +119,22 @@ button {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  color: white;
+
   position: relative;
   min-width: 400px;
   max-width: 700px;
-  margin: 0 auto;
   .todo-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    background-color: var(--alt-backround);
+    background-color: var(--alt-background);
     min-width: 100%;
     height: auto;
     padding: 1rem;
     border-radius: 0.5rem;
+    transform: translateY(-10);
+    opacity: 1;
     .buttons {
       display: flex;
       gap: 2rem;
@@ -194,33 +196,38 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--alt-backround);
   width: 80%;
-  color: white;
   height: 4rem;
   border-radius: 0.3rem;
   font-weight: 700;
   font-size: 1.2rem;
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.todo-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out forwards;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
   }
   to {
     opacity: 1;
-    transform: translateY(0px);
   }
 }
 
 @keyframes fadeOut {
   from {
     opacity: 1;
-    transform: translateY(0px);
   }
   to {
     opacity: 0;
-    transform: translateY(10px);
   }
 }

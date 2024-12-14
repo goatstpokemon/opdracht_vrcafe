@@ -1,0 +1,46 @@
+.dark {
+  background: url(https://i0.wp.com/www.vrcafehaarlem.nl/wp-content/uploads/2021/05/Group-208.png?fit=1472%2C709&ssl=1)
+      no-repeat center center,
+    hsl(278, 14%, 11%);
+  background-size: cover;
+  color: hsl(0, 0%, 100%);
+  .new-todo-form {
+    select {
+      color: hsl(0, 0%, 100%) !important;
+    }
+  }
+}
+
+.light {
+  background: url(https://i0.wp.com/www.vrcafehaarlem.nl/wp-content/uploads/2021/05/Group-208.png?fit=1472%2C709&ssl=1)
+      no-repeat center center,
+    hsl(0, 0%, 100%) !important;
+  color: hsl(0, 0%, 0%) !important;
+  background-size: cover;
+  .todo-item {
+    background: hsl(0, 0%, 95%) !important;
+    color: hsl(0, 0%, 0%) !important;
+  }
+
+  .toast {
+    background: hsl(0, 0%, 95%) !important;
+    color: hsl(0, 0%, 0%) !important;
+  }
+
+  .new-todo-form {
+    select {
+      color: hsl(0, 0%, 0%) !important;
+
+      option {
+        background: hsl(0, 0%, 100%);
+        color: hsl(0, 0%, 0%) !important;
+      }
+    }
+  }
+  .sidebar {
+    background: hsl(0, 0%, 95%);
+    ul > li {
+      color: hsl(0, 0%, 0%);
+    }
+  }
+}

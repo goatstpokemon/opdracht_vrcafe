@@ -27,3 +27,34 @@
     display: none;
   }
 }
+.dark-mode-button {
+  background: transparent;
+  svg {
+    fill: white;
+  }
+}
+.sidebar {
+  display: flex;
+  color: white;
+  background: var(--alt-background);
+  border-radius: 0.5rem;
+  width: 25%;
+  height: fit-content;
+  nav > ul {
+    list-style: none;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    li {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+    }
+    li:hover {
+      color: var(--tertiary);
+      border-radius: 0.2rem;
+    }
+  }
+}

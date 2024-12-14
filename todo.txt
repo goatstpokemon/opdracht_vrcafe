@@ -3,8 +3,8 @@ Frontend
  - Invoerveld voor het aanmaken van een taak ✔️
  - Filteren op categorie sidebar/tabs en collapsable menu/dropdown ✔️
  - Toevoegen van categorie aan veld ✔️
- - Toggle dark/light
- - Sidebar voor filters
+ - Toggle dark/light ✔️
+ - Sidebar voor filters ✔️
  - Knoppen
     - Voltooid ✔️
     - Verwijderd ✔️

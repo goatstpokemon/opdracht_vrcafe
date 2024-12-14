@@ -5,9 +5,16 @@
   .title {
     font-size: 4.5rem;
   }
-
+  .nav-buttons {
+    display: flex;
+    gap: 1rem;
+  }
   .todo-list {
     width: 90%;
+    margin: 0 auto;
+  }
+  .sidebar {
+    display: none;
   }
   .mob-nav-section {
     display: block;
