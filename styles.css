@@ -204,7 +204,10 @@ button {
   justify-content: center;
   align-items: center;
   width: 80%;
+  max-width: 400px;
+  background: var(--alt-background);
   height: 4rem;
+  z-index: 200;
   border-radius: 0.3rem;
   font-weight: 700;
   font-size: 1.2rem;
