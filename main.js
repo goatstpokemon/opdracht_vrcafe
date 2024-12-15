@@ -5,7 +5,6 @@ var currentCategory = 'Alle';
 var darkmode = true;
 var completed = false;
 
-
 window.onload = () => {
   if (todos) {
     todosArr = todos;
@@ -27,7 +26,6 @@ const addTodo = () => {
       category: categoryValue,
       voltooid: false
     });
-    console.log("length is 0", todosArr);
 
     localStorage.setItem('todos', JSON.stringify([...todosArr]));
     listTodos();
@@ -51,36 +49,23 @@ const addTodo = () => {
         category: categoryValue,
         voltooid: false
       });
-
-      console.log("added new todo", categoryValue);
-
     }
     localStorage.setItem('todos', JSON.stringify([...todosArr]));
     listTodos();
   }
 };
 const deleteTodo = (el) => {
-  console.log('deleteTodo');
-
   const todoItem = el.closest('.todo-item');
   const todoText = todoItem.innerText;
 
-  console.log({ todoText, todosArr });
-
-
   if (todoText === todosArr.filter((val) => val.todo === todoText)[0]?.todo) {
-    console.log('deleteTodo', todoText);
-
     todoItem.classList.add('remove-todo');
 
-
-      todosArr = todosArr.filter((val) => val.todo !== todoText);
-      localStorage.setItem('todos', JSON.stringify([...todosArr]));
-      listTodos();
-
+    todosArr = todosArr.filter((val) => val.todo !== todoText);
+    localStorage.setItem('todos', JSON.stringify([...todosArr]));
+    listTodos();
   }
 };
-
 const completedTodo = (el) => {
   const todoText = el.parentElement.parentElement.innerText;
   const todos = JSON.parse(localStorage.getItem('todos'));
@@ -91,8 +76,10 @@ const completedTodo = (el) => {
 };
 
 const categoryFilter = (category) => {
+    completed = false;
+
   const todos = JSON.parse(localStorage.getItem('todos'));
-  console.log(todos[0].category === category);
+
   currentCategory = category;
   if (category === 'Alle') {
     todosArr = todos;
@@ -100,29 +87,32 @@ const categoryFilter = (category) => {
     return;
   }
   const filteredTodos = todos.filter((todo) => todo.category === category);
-  console.log(filteredTodos);
-
+  if (filteredTodos.length === 0) {
+    todoList.innerHTML = '<p class="no-task">Geen taken gevonden</p>';
+    return;
+  }
   todosArr = filteredTodos;
-  console.log({ todosArr });
+
   listTodos();
 };
 
 const showCompleted = () => {
   completed = true;
+  console.log('showCompleted');
   const todos = JSON.parse(localStorage.getItem('todos'));
-  const completedTodos = todos.filter((todo) => todo.voltooid === true);
+  const completedTodos = todos.filter((todo) => todo.voltooid !== false);
+  console.log({ completedTodos, todos });
   todosArr = completedTodos;
+  console.log({ todosArr });
+
   listTodos();
 };
-
 const showAll = () => {
-  completed != completed;
+  completed = false;
   const todos = JSON.parse(localStorage.getItem('todos'));
   todosArr = todos;
   listTodos();
-}
-
-
+};
 
 const groupTodos = (todos) => {
   let groupedTodos = todos.reduce((acc, curr) => {
@@ -132,7 +122,6 @@ const groupTodos = (todos) => {
     acc[curr.category].push(curr);
     return acc;
   }, {});
-  console.log({ groupedTodos });
 
   return groupedTodos;
 };
@@ -171,41 +160,57 @@ const createTodoItem = (todo) => {
 };
 
 const listTodos = () => {
+  console.log('completed', completed);
+
   todoList.innerHTML = '';
-  todoList.innerHTML += `<h2 class="category-title">${currentCategory}</h2>`;
-  if (todosArr.length === 0 ) {
-   todoList.innerHTML += '<p class="no-task">Geen taken gevonden</p>';
-  }
+  if (completed) {
 
 
-  if (currentCategory === 'Alle') {
-    let groupedTodo = groupTodos(todosArr);
-    Object.entries(groupedTodo).forEach(([categories, todos]) => {
-      console.log({ categories, todos });
+    todosArr.forEach((todo) => {
+      if (todo.voltooid === true) {
+        const li = createTodoItem(todo);
+        todoList.appendChild(li);
+      }
+    });
+  } else {
+    // check if you are in the all category
+    if (currentCategory === 'Alle') {
+      // check if there are no todos
+      if (todosArr.length === 0) {
+        todoList.innerHTML += '<p class="no-task">Geen taken gevonden</p>';
+      } else {
+        console.log('groupedTodos');
+        let groupedTodo = groupTodos(todosArr);
+        Object.entries(groupedTodo).forEach(([categories, todos]) => {
+          console.log({ categories, todos });
 
-      const h2 = document.createElement('h2');
+            const h2 = document.createElement('h2');
+            h2.classList.add('category-title-sm');
+            h2.innerText = categories;
+            todoList.appendChild(h2);
+
+            todos.forEach((todo) => {
+              const li = createTodoItem(todo);
+              todoList.appendChild(li);
+            });
+
+
+        });
+      }
+    } else {
+      let h2 = document.createElement('h2');
       h2.classList.add('category-title-sm');
-      h2.innerText = categories;
-      todoList.appendChild(h2);
-      todos.forEach((todo) => {
+      h2.innerText = currentCategory;
+      todosArr.forEach((todo) => {
         if (todo.voltooid !== true) {
-
           const li = createTodoItem(todo);
           todoList.appendChild(li);
         }
       });
-    });
-} else {
-  todosArr.forEach((todo) => {
-    if (todo.voltooid !== true) {
-      const li = createTodoItem(todo);
-      todoList.appendChild(li);
     }
-  });
-}
-  document.getElementsByClassName('todo-container')[0].appendChild(todoList);
-}
-
+    document.getElementsByClassName('todo-container')[0].appendChild(todoList);
+  }
+};
 
 const toggleMenu = () => {
   const menu = document.getElementsByClassName('menu')[0];
